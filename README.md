@@ -47,3 +47,24 @@ The LudoGame object represents the game as played.  The class should contain inf
 * get_player_by_position takes a parameter representing the player’s position as a string and returns the player object. For an invalid string parameter, it will return "Player not found!"
 * move_token method takes three parameters, the player object, the token name (‘p’ or ‘q’) and the steps the token will move on the board (int).  This method will take care of one token moving on the board.  It will also update the token’s total steps, and it will take care of kicking out other opponent tokens as needed.  The play_game method will use this method.
 * play_game method takes two parameters, the players list, and the turns list.  The players list is the list of positions players choose, like [‘A’, ‘C’] means two players will play the game at position A and C.  Turns list is a list of tuples with each tuple a roll for one player. For example, [('A', 6), ('A', 4), ('C', 5)] means player A rolls 6, then rolls 4, and player C rolls 5. This method will create the player list first using the players list pass in, and then move the tokens according to the turns list following the priority rule and update the tokens position and the player’s game state (whether finished the game or not). After all the moving is done in the turns list,  the method will return a list of strings representing the current spaces of all of the tokens for each player in the list after moving the tokens following the rules described above.  **‘H’ for home yard, ‘R’ for ready to go position, ‘E’ for finished position, and other letters/numbers for the space the token has landed on**.
+
+* As a simple example, your class could be used as follows:
+
+```
+players = ['A', 'B']
+turns = [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6), ('B', 4), ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3), ('A', 5), ('A', 1), ('A', 5), ('A', 4)]
+game = LudoGame()
+current_tokens_space = game.play_game(players, turns)
+player_A = game.get_player_by_position('A')
+print(player_A.get_completed())
+print(player_A.get_token_p_step_count())
+print(current_tokens_space)
+player_B = game.get_player_by_position('B')
+print(player_B.get_space_name(55))
+
+And the output will be:
+False
+28
+[‘28’, ‘28’, ‘21’, ‘H’]
+B5
+
